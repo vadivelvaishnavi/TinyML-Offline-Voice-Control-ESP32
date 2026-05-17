@@ -1,53 +1,48 @@
 # Adaptive Noise-Robust Offline Voice-Controlled Microcontroller using TinyML
 
-An ESP32-based TinyML voice recognition system capable of offline keyword spotting with adaptive noise handling and real-time device control.
+## Introduction
+
+This project presents an adaptive noise-robust offline voice-controlled microcontroller system implemented using TinyML and ESP32. The system is capable of recognizing predefined voice commands locally on a microcontroller without relying on cloud computing or internet connectivity.
+
+The project focuses on developing a low-power, privacy-preserving, and real-time voice interface suitable for embedded systems and IoT applications. Audio captured through the INMP441 I2S microphone is processed using adaptive noise filtering and Voice Activity Detection (VAD). Relevant speech features are extracted using MFCC (Mel-Frequency Cepstral Coefficients), and a TinyML model trained using Edge Impulse performs keyword spotting directly on the ESP32.
+
+When the target keyword "RED" is detected with sufficient confidence, the ESP32 activates connected outputs such as LEDs or relays and displays inference information on an OLED display.
+
+This project demonstrates how intelligent voice interfaces can be deployed efficiently on resource-constrained embedded hardware while maintaining low latency, privacy, and energy efficiency.
 
 ---
 
-#  Project Overview
+# Project Objectives
 
-This project implements an adaptive noise-robust offline voice-controlled microcontroller system using TinyML and ESP32.
+The primary objectives of this project are:
 
-The system captures voice input through an INMP441 I2S microphone, processes the audio using adaptive noise filtering and MFCC feature extraction, and performs keyword spotting directly on the microcontroller using an Edge Impulse TinyML model.
-
-When the predefined keyword **"RED"** is detected, the ESP32 activates output devices such as LEDs or relays.
-
-The entire system works completely offline without cloud dependency, ensuring:
-- Low latency
-- Privacy
-- Energy efficiency
-- Real-time edge AI processing
+- To develop an offline voice recognition system using TinyML.
+- To implement keyword spotting directly on ESP32 microcontroller hardware.
+- To improve recognition reliability under noisy environmental conditions.
+- To reduce dependence on cloud-based speech recognition systems.
+- To provide a low-latency and privacy-preserving embedded AI solution.
+- To demonstrate real-time embedded inference using Edge Impulse.
+- To create a scalable framework for future multi-command voice control systems.
 
 ---
 
-#  Features
+# System Overview
 
-- Offline voice recognition
-- TinyML inference on ESP32
-- Adaptive noise filtering
-- Voice Activity Detection (VAD)
-- MFCC feature extraction
-- Real-time keyword spotting
-- OLED feedback display
-- Low-power embedded AI
-- Privacy-preserving edge intelligence
+The system continuously listens for audio input through the INMP441 digital microphone. The incoming audio is processed in several stages:
 
----
+1. Audio Capture
+2. Noise Filtering
+3. Voice Activity Detection
+4. MFCC Feature Extraction
+5. TinyML Inference
+6. Decision Logic
+7. Output Activation
 
-#  Hardware Components
-
-| Component | Purpose |
-|---|---|
-| ESP32 Dev Board | Main controller |
-| INMP441 I2S Microphone | Audio capture |
-| SSD1306 OLED Display | Display inference results |
-| LED / Relay Module | Output actuation |
-| Breadboard & Jumper Wires | Connections |
-| 5V USB Supply | Power source |
+The ESP32 performs all processing locally, eliminating the need for internet connectivity or external servers.
 
 ---
 
-#  System Workflow
+# System Workflow
 
 ```text
 Microphone Input
@@ -67,37 +62,134 @@ LED / Relay Output
 
 ---
 
-#  Block Diagram
+# Block Diagram
 
 <p align="center">
   <img src="doc/block.png" width="900">
 </p>
 
+## Description of Block Diagram
+
+### Microphone Input
+
+The INMP441 I2S microphone captures environmental audio signals and sends digital audio samples to the ESP32.
+
+### Adaptive Noise Filtering
+
+The system continuously estimates ambient noise levels and dynamically adjusts thresholds to improve recognition reliability under varying environmental conditions.
+
+### Voice Activity Detection (VAD)
+
+Voice Activity Detection identifies speech frames and eliminates silence or irrelevant noise, reducing unnecessary processing and power consumption.
+
+### MFCC Feature Extraction
+
+MFCC (Mel-Frequency Cepstral Coefficients) are extracted from the audio signal to represent speech characteristics in a compact and machine-learning-friendly form.
+
+### TinyML Inference
+
+The extracted MFCC features are passed to the TinyML keyword spotting model trained using Edge Impulse. The model classifies audio into predefined categories such as:
+- noise
+- red
+- unknown
+
+### ESP32 Decision Logic
+
+The ESP32 evaluates prediction confidence scores. If the confidence for the target keyword exceeds a predefined threshold, the corresponding output is activated.
+
+### Output Module
+
+Outputs such as LEDs, relays, or motors are controlled based on the detected voice command.
+
 ---
 
-#  Circuit Diagram
+# Circuit Diagram
 
 <p align="center">
   <img src="hardware/circuit_diagram.png" width="1000">
 </p>
 
+## Circuit Description
+
+The ESP32 acts as the central processing unit of the system.
+
+### INMP441 Connections
+
+The INMP441 microphone communicates with ESP32 through the I2S protocol:
+- VDD → 3.3V
+- GND → GND
+- WS → GPIO25
+- SCK → GPIO27
+- SD → GPIO33
+
+### OLED Display Connections
+
+The SSD1306 OLED display communicates using I2C protocol:
+- VCC → 3.3V / 5V
+- GND → GND
+- SCL → GPIO22
+- SDA → GPIO21
+
+### Output Device Connections
+
+LEDs or relay modules are connected to ESP32 GPIO pins and are activated when the keyword is detected.
+
+### Power Supply
+
+The entire system is powered through a 5V USB supply or battery source.
+
 ---
 
-#  Hardware Prototype
+# Hardware Prototype
 
 <p align="center">
   <img src="hardware/hardware.png" width="700">
 </p>
 
+## Hardware Description
+
+The prototype consists of:
+- ESP32 Development Board
+- INMP441 Digital Microphone
+- OLED Display
+- Relay Module / LED
+- Breadboard
+- Jumper Wires
+
+The setup demonstrates real-time voice command recognition and output activation.
+
 ---
 
-#  ML Model Performance
+# Machine Learning Model
 
 <p align="center">
   <img src="ml/ml result.png" width="800">
 </p>
 
-## Model Metrics
+## Model Description
+
+The TinyML model was trained using Edge Impulse for keyword spotting applications.
+
+### Feature Extraction Technique
+
+The model uses MFCC (Mel-Frequency Cepstral Coefficients) for speech feature extraction.
+
+MFCC converts audio waveforms into compact numerical representations that preserve important speech characteristics while reducing data dimensionality.
+
+### Classification Labels
+
+The model classifies audio into:
+- noise
+- red
+- unknown
+
+### Deployment Platform
+
+The trained model is deployed directly on ESP32 using Edge Impulse TinyML deployment libraries.
+
+---
+
+# Model Performance
 
 | Metric | Value |
 |---|---|
@@ -107,13 +199,31 @@ LED / Relay Output
 | Weighted F1 Score | 0.97 |
 | ROC AUC | 0.98 |
 
+## Performance Analysis
+
+The model achieved high recognition accuracy under normal environmental conditions. Adaptive noise thresholding improved robustness in noisy surroundings.
+
+The confusion matrix indicates reliable classification for:
+- target keyword detection
+- background noise rejection
+- unknown speech handling
+
 ---
 
-#  Serial Monitor Output
+# Serial Monitor Output
 
 <p align="center">
   <img src="result/output.png" width="500">
 </p>
+
+## Output Description
+
+The serial monitor displays:
+- audio peak levels
+- confidence scores
+- noise levels
+- prediction results
+- output activation status
 
 ### Sample Output
 
@@ -127,9 +237,24 @@ FINAL red=0.42 noise=0.45
 LED ON
 ```
 
+The OLED display also provides real-time prediction feedback to the user.
+
 ---
 
-#  Repository Structure
+# Software and Tools Used
+
+| Software / Tool | Purpose |
+|---|---|
+| Arduino IDE | Firmware development |
+| Edge Impulse | TinyML model training |
+| TensorFlow Lite Micro | Embedded ML inference |
+| ESP32 Board Package | ESP32 support |
+| Adafruit SSD1306 Library | OLED display handling |
+| I2S Driver Libraries | Audio communication |
+
+---
+
+# Repository Structure
 
 ```text
 .
@@ -165,86 +290,86 @@ LED ON
 
 ---
 
-#  Software & Tools
+# Applications
 
-- Arduino IDE
-- Edge Impulse
-- TensorFlow Lite for Microcontrollers
-- ESP32 Board Package
-- Adafruit SSD1306 Library
-- TinyML Inference SDK
+## Smart Home Automation
 
----
+The system can control household appliances such as lights, fans, and switches using offline voice commands.
 
-#  Machine Learning Details
+## Healthcare Assistive Systems
 
-## Framework
-- Edge Impulse TinyML
+Voice-controlled assistive devices can help elderly and differently-abled individuals operate systems more easily.
 
-## Feature Extraction
-- MFCC (Mel-Frequency Cepstral Coefficients)
+## Industrial Automation
 
-## Classes
-- noise
-- red
-- unknown
+Hands-free machine operation improves worker safety and operational efficiency in industrial environments.
 
-## Deployment
-- ESP32 Microcontroller
-- Fully offline inference
+## Agricultural IoT
+
+Voice commands can be used for irrigation control and monitoring systems in remote areas.
+
+## Automotive Systems
+
+Offline voice interfaces can be integrated into vehicles for controlling infotainment or auxiliary systems.
+
+## Educational Embedded AI Kits
+
+The project serves as an educational example of TinyML deployment on embedded hardware.
 
 ---
 
-#  Applications
+# Future Scope
 
-- Smart Home Automation
-- Healthcare Assistive Devices
-- Industrial Automation
-- Agricultural IoT
-- Automotive Voice Interfaces
-- Educational Embedded AI Kits
-- Wearable Electronics
-
----
-
-
-#  Future Improvements
+Potential future improvements include:
 
 - Multi-keyword recognition
-- MQTT/WiFi integration
 - Multi-language support
+- WiFi and MQTT integration
+- Smart home ecosystem integration
 - Ultra-low-power optimization
-- Sensor fusion systems
-- Smart city deployment
+- Sensor fusion with gesture or touch inputs
+- Smart city applications
 
 ---
 
-#  Demo
+# Demonstration
 
-Demo video available in:
+A demonstration video is available in:
 
 ```text
 result/demo.mp4
 ```
+
+The video demonstrates:
+- voice command detection
+- LED activation
+- OLED feedback
+- real-time inference
+
 ---
 
-#  Acknowledgements
+# Conclusion
 
-- Edge Impulse
-- TensorFlow Lite Micro
-- Espressif ESP32
-- TinyML Community
-  
+This project demonstrates the successful implementation of an adaptive noise-robust offline voice-controlled system using TinyML on ESP32.
+
+The integration of:
+- adaptive noise filtering
+- MFCC feature extraction
+- TinyML keyword spotting
+- embedded inference
+
+enables efficient and privacy-preserving voice interaction on low-power microcontrollers.
+
+The system validates the practicality of deploying intelligent voice interfaces directly on edge devices without cloud dependency.
+
 ---
 
-
-#  Author
+# Author
 
 Kesihambigai S
 
 ---
 
-#  License
+# License
 
 This project is licensed under the MIT License.
-
