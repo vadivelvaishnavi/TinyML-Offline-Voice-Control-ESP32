@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Conda Environment
+.env
+
+# Arduino Build Files
+*.elf
+*.bin
+*.hex
+
+# ESP32 Temporary Files
+build/
+dist/
+
+# Edge Impulse SDK Generated Files
+edge-impulse-sdk/CMSIS/DSP/Examples/
+edge-impulse-sdk/CMSIS/NN/Examples/
+
+# Logs
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# TensorFlow Lite
+*.tflite
+
+# ZIP Files
+*.zip
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Media Files (optional)
+*.mp4
+
+# Large datasets
+datasets/
+data/
+
+# Arduino cache
+*.ino.cpp
