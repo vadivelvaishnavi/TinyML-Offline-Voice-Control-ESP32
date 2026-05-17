@@ -1,0 +1,27 @@
+name: tinyml-voice-controller
+
+channels:
+  - defaults
+  - conda-forge
+
+dependencies:
+  - python=3.10
+  - numpy
+  - scipy
+  - matplotlib
+  - pandas
+  - scikit-learn
+  - jupyter
+  - notebook
+  - pip
+
+  - pip:
+      - tensorflow
+      - tensorflow-lite
+      - tensorflow-model-optimization
+      - librosa
+      - sounddevice
+      - soundfile
+      - edge-impulse-linux
+      - pyserial
+      - opencv-python
