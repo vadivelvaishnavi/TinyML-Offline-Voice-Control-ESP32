@@ -1,0 +1,16 @@
+numpy
+scipy
+matplotlib
+pandas
+tensorflow
+tensorflow-lite
+tensorflow-model-optimization
+librosa
+sounddevice
+soundfile
+scikit-learn
+jupyter
+notebook
+edge-impulse-linux
+pyserial
+opencv-python
