@@ -99,7 +99,7 @@ The ESP32 evaluates prediction confidence scores. If the confidence for the targ
 
 ### Output Module
 
-Outputs such as LEDs, relays, or motors are controlled based on the detected voice command.
+Outputs such as LEDs, relays, or motors are controlled based on the detected voice command and the result is displayed on the OLED display.
 
 ---
 
@@ -168,7 +168,12 @@ The setup demonstrates real-time voice command recognition and output activation
 
 ## Model Description
 
-The TinyML model was trained using Edge Impulse for keyword spotting applications.
+The TinyML model was trained using Edge Impulse for keyword spotting applications. <br>
+
+## Training <br>
+
+We have trained the model by giving samples of our own voices which makes the model recognise the word "red". The user's voice can be recognised even if their voice was not a part of our training samples.
+<br>
 
 ### Feature Extraction Technique
 
@@ -369,6 +374,8 @@ The system validates the practicality of deploying intelligent voice interfaces 
 Kesihambigai S
 V Vaishnavi
 
+Kesihambigai S <br>
+Dishika G
 ---
 
 # License
