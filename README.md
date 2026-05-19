@@ -371,11 +371,9 @@ The system validates the practicality of deploying intelligent voice interfaces 
 
 # Author
 
-Kesihambigai S
-V Vaishnavi
-
 Kesihambigai S <br>
-Dishika G
+Dishika G <br>
+V Vaishnavi
 ---
 
 # License
